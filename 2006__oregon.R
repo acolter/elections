@@ -9,12 +9,13 @@ df <- clean_file(file)
 clean_file <- function(file) {
 df <- read.csv(file, stringsAsFactors = FALSE)
 
-## update values for office and district from file
+## read in values for office, district and county from the file name
 office <- paste(unlist(strsplit(file," "))[3],unlist(strsplit(file," "))[4])
 district <- regmatches(file, regexpr("[[:digit:]]+", file)) #could be "[0-9]+" or \\d+
 candidate <- tail(names(df),-1)
 county <- regmatches(file, regexpr("[[:alpha:]]+", file))
 
+## reshape wide format to long format so candidate names are a value not a column name
 df <- df %>% 
   gather(candidate, key = candidate, value = votes) %>%
   separate(candidate, sep = "\\.{2,}", into = c("candidate","party")) %>%
@@ -27,6 +28,7 @@ df <- df %>%
 df$candidate <- gsub('[\\.]', ' ', df$candidate)
 df$party <- gsub('[.]$', ' ', df$party)
 df[is.na(df)] <- ""
+
 write.csv(df, file="clackamas.csv", row.names = F)
 
 return(df)
