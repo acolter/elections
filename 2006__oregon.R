@@ -4,9 +4,9 @@ library(dplyr)
 ## General Election Clackamas County Oregon November 2006
 
 file <- "Clackamas - State House 52.csv"
-df <- clean_file(file)
+df <- tidy_data(file)
 
-clean_file <- function(file) {
+tidy_data <- function(file) {
 df <- read.csv(file, stringsAsFactors = FALSE)
 
 ## read in values for office, district and county from the file name
