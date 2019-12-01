@@ -1,0 +1,36 @@
+library(tidyr)
+library(dplyr)
+
+## Cleaning output of numbered key canvass election results report 
+
+file <- "Clackamas - State House 52.csv"
+df <- tidy_data(file)
+
+tidy_data <- function(file) {
+df <- read.csv(file, stringsAsFactors = FALSE)
+
+## read in values for office, district and county from file name
+office <- paste(unlist(strsplit(file," "))[3],unlist(strsplit(file," "))[4])
+district <- regmatches(file, regexpr("[[:digit:]]+", file)) #could be "[0-9]+" or \\d+
+candidate <- tail(names(df),-1)
+county <- regmatches(file, regexpr("[[:alpha:]]+", file))
+
+## reshape wide format to long format
+df <- df %>% 
+  gather(candidate, key = candidate, value = votes) %>%
+  separate(candidate, sep = "\\.{2,}", into = c("candidate","party")) %>%
+  mutate(county = county, 
+         office = office, 
+         district = district) %>%
+  select(county,precinct,office,district,party,candidate,votes)
+
+## clean up errant periods and NA values
+df$candidate <- gsub('[\\.]', ' ', df$candidate)
+df$party <- gsub('[.]$', ' ', df$party)
+df[is.na(df)] <- ""
+write.csv(df, file="clackamas.csv", row.names = F)
+
+return(df)
+
+}
+
