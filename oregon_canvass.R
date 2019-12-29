@@ -13,7 +13,7 @@ df <- read.csv(file, stringsAsFactors = FALSE, header = FALSE)
 
 ## set column and variable names
 colnames(df) <- df[1,]
-offices <- "President|U.S. |Secretary of |State |House|Senate|Governor|Attorney General| Treasurer"
+offices <- "President|U.S. |Secretary of State|State Treasurer|State |House|Senate|Governor|Attorney General"
 county <- word(file,2)
 office <- paste(str_extract_all(file, offices, simplify = TRUE), collapse="")
 district <- str_match(file,"(\\d+)(-R)*.csv")[,2]
@@ -30,6 +30,7 @@ df <- df %>%
          party = party) %>%
   mutate(district = replace_na(district, "")) %>%
   mutate(party = str_replace_all(party, "\\(|\\)","")) %>%
+  mutate(candidate = str_replace(candidate, "\\s$","")) %>%
   select(county, precinct, office, district, party, candidate, votes) 
   
 write.csv(df, file=paste0(county,".csv"), row.names = F)
