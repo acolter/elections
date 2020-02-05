@@ -1,6 +1,3 @@
-
-These scripts process a file from https://www.sos.state.oh.us/globalassets/elections/2018/gen/2018-11-06_statewidecounty.xlsx
-
 # Daily Kos Elections Data Calculation Project ReadMe.md
 This project calculates the results of the 2018 elections for senator and governor, broken down by congressional district and legislative district. 
 
