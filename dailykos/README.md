@@ -16,11 +16,11 @@ Both csv files adhere to the following tidy data principles:
 
 	* Each variable in one column
 	* Each observation in a different row
-  * One table for each observation unit
+	* One table for each observation unit  
 
 ## Raw Data
 
-join_tidy.csv includes the combined test and training data sets from the following sheets:
+tbd
 
 * Statewide Offices
 * Gen Assembly
