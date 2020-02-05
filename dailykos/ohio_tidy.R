@@ -4,7 +4,7 @@ library(tidyr)
 library(stringr)
 library(zoo)
 
-file <- "2018-11-06_statewideprecinct.xlsx"
+file <- "2018-11-06_statewideprecinct_miami.xlsx"
 excel_sheets(file)
 
 ## governor results
@@ -20,6 +20,8 @@ gov_tidy <- df %>%
          Cordray = "Richard Cordray and Betty Sutton (D)",
          DeWine = "Mike DeWine and Jon Husted (R)") %>%
   gather(key = gov_candidate, value = gov_votes, Cordray:precinct_total)
+
+write.csv(gov_tidy, file=("gov_tidy.csv"), row.names = F)
 
 ## state legislative results
 df <- read_xlsx(file, sheet=5, col_names = FALSE)
@@ -42,6 +44,8 @@ ga_tidy <- ga_tidy %>%
   mutate(house_votes = na_if(house_votes, "0")) %>%
   mutate_at(vars(5), as.numeric) %>%
   drop_na()
+
+write.csv(ga_tidy, file=("ga_tidy.csv"), row.names = F)
 
 ## join the two sheets
 join_tidy <- full_join(ga_tidy,gov_tidy,by=c("county","precinct"))
