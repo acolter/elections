@@ -1,6 +1,9 @@
 ### CALCULATES ELECTION RESULTS FOR GOVERNOR ###
 ### BROKEN DOWN BY STATE LEGISLATIVE DISTRICT ###
 
+library(dplyr)
+library(tidyr)
+
 join_tidy <- read.csv("join_tidy.csv", stringsAsFactors = FALSE)
 
 # list of split precincts in the state 
