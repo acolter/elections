@@ -24,9 +24,9 @@ Both csv files adhere to the following tidy data principles:
 
 ## Script
 
-ohio_tidy.R takes the raw data from the precinct-level results for statewide offices and general assembly, imports them into R, and transforms them into a tidy data subset.
+# ohio_tidy.R 
 
-The script performs the following operations:
+Takes the raw data from the precinct-level results for statewide offices and general assembly, imports them into R, and transforms them into a tidy data subset. The script performs the following operations:
 
 1. Labels the statewide data set with descriptive variable names.
 2. Extracts county names, precinct names and vote totals by candidate and office.
@@ -41,3 +41,5 @@ The script performs the following operations:
 	* Gathers the candidate last name and precinct_total columns and create a house_votes column with total votes for state representative
 6. Joins the governor and house district data set by county and precinct.
 
+# undervote_factor.R
+tbd
