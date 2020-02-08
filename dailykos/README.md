@@ -19,7 +19,7 @@ Both csv files adhere to the following tidy data principles:
 
 ## Raw Data
 
-* gov_tidy.csv includes the data set from the from the Statewide Offices worksheet of the amended results workbook
+* gov_tidy.csv includes the data set from the Statewide Offices worksheet of the amended results workbook
 * ga_tidy.csv includes the data set from the from the Gen Assembly worksheet of the amended results workbook
 
 ## Script
@@ -28,10 +28,16 @@ ohio_tidy.R takes the raw data from the precinct-level results for statewide off
 
 The script performs the following operations:
 
-1. Extracts only county names, precinct names and vote totals for governor candidates.
-2. Creates a sum of all votes for governor candidates in each precinct.
-	* Select columns for the (D) and (R) candidates, remove all other candidate columns.
-	* Gather the candidate last name and precinct_total columns and create a gov_votes column with total votes for governor
-3. Appropriately labels the data set with descriptive variable names.
-4. tbd
+1. Labels the statewide data set with descriptive variable names.
+2. Extracts county names, precinct names and vote totals by candidate and office.
+3. Creates a sum of all votes for governor candidates in each precinct.
+	* Selects columns for the (D) and (R) candidates, remove all other candidate columns.
+	* Gathers the candidate last name and precinct_total columns and create a gov_votes column with total votes for governor
+4. Labels the general assembly data set with descriptive variable names. 
+	* Uses locf to replace NA values with house districts
+	* Separates column names into candidate names and house districts
+5. Creates a sum of all votes for state house candidates in each precinct. 
+	* Selects columns for the (D) and (R) candidates, remove all other candidate columns.
+	* Gathers the candidate last name and precinct_total columns and create a house_votes column with total votes for state representative
+6. Joins the governor and house district data set by county and precinct.
 
